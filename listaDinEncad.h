@@ -10,13 +10,13 @@ struct numeros
 
 typedef struct elemento *Lista; // Ponteiro "*Lista"
 
-// função que cria uma lista encadeada simples
+// função que cria uma lista dinâmica simples
 Lista *cria_lista();
 // funcão que destroi a lista
 void libera_lista(Lista *li);
 // funçao que retorna o tamanho do lista
 int tamanho_lista(Lista *li);
-// funçao que di se a lista está vazia
+// funçao que retorna se a lista está vazia
 int lista_vazia(Lista *li);
 // funçao que insere no inicio da lista
 int insere_lista_inicio(Lista *li, struct numeros num);

@@ -3,9 +3,6 @@
 #include <stdlib.h>
 #include "listaDinEncad.h"
 
-/*
- *
- */
 int main(int argc, char **argv)
 {
 
