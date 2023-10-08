@@ -110,7 +110,7 @@ int insere_lista_final(Lista *li, struct numeros num)
 
         Elem *aux = *li; // cria uma variavel auxiliar que recebe o inicio da lista;
 
-        while (aux->prox != NULL) // até o aux->prox apontar para null
+        while (aux->prox != NULL) // até o aux->prox apontar para null(sempre percorre a lista com o auxiliar)
         {
             aux = aux->prox; // o auxiliar vai receber o (no) seguinte a ele
         }
