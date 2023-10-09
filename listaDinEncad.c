@@ -28,21 +28,21 @@ Lista *cria_lista()
 void libera_lista(Lista *li)
 {
     if (li != NULL)
-    { // Lista for diferente de null;
+    { // Verifica se a lista não é nula
 
-        Elem *no; // define o ponteiro elemento =>(no)
+        Elem *no; // Declara um ponteiro para o elemento da lista (nó)
 
-        while ((*li) != NULL) //  ==>> opera até a lista estiver vazia
+        while ((*li) != NULL)
+        { // Loop enquanto a lista não estiver vazia
 
-        { // enquanto o inicio da lista for diferente de nulo
+            no = *li; // Atribui o ponteiro para o início da lista ao nó
 
-            no = *li; // no recebe o inicio da lista
+            *li = (*li)->prox; // Move o início da lista para o próximo elemento
 
-            *li = (*li)->prox; // o inicio da lista aponta para o proximo elemento
-
-            free(no); // libero no antigo
+            free(no); // Libera a memória do nó antigo
         }
-        free(li); // libero a cabeça da lista
+
+        free(li); // Libera a memória da cabeça da lista
     }
 }
 
@@ -124,35 +124,33 @@ int insere_lista_ordenada(Lista *li, struct numeros num)
 {
     if (li == NULL)
         return 0;
-    Elem *no = (Elem *)malloc(sizeof(Elem)); // cria um novo elemento da lista
+
+    // Aloca memória para um novo elemento da lista
+    Elem *no = (Elem *)malloc(sizeof(Elem));
+    if (no == NULL)
+    {
+        return 0; // Retorna 0 se a alocação de memória falhar
+    }
+
+    // Define os dados do novo elemento como o número fornecido
     no->dados = num;
+
     if (lista_vazia(li))
-    { // insere no incio
+    { // Se a lista estiver vazia, insere no início
         no->prox = (*li);
         *li = no;
-        return 1;
+        return 1; // Retorna 1 para indicar sucesso na inserção
     }
     else
-    { // procurar onde inserir
+    { // Caso contrário, procure onde inserir
 
-        Elem *ant, *atual = *li; // cria dois elementos que apontam para o inicio da lista
+        Elem *ant, *atual = *li; // Cria dois elementos que apontam para o início da lista
 
-        while (atual != NULL && atual->dados.numero < num.numero) // enquanto o elemento atual for diferente de null e o elemento da lista for menor que o numero que estiver inserindo
+        while (atual != NULL && atual->dados.numero < num.numero)
         {
-            ant = atual;         // o anterior recebe o atual
-            atual = atual->prox; // atual aponta para o proximo elemento
+            ant = atual;         // O elemento anterior recebe o elemento atual
+            atual = atual->prox; // O elemento atual avança para o
         }
-        if (atual == *li)
-        { // insere inicio
-            no->prox = (*li);
-            *li = no;
-        }
-        else
-        {
-            no->prox = ant->prox;
-            ant->prox = no;
-        }
-        return 1;
     }
 }
 
@@ -198,54 +196,61 @@ void imprime_lista(Lista *li)
 int remove_lista_final(Lista *li)
 {
     if (li == NULL)
-        return 0;
-    if ((*li) == NULL)
-        return 0;
+        return 0; // Retorna 0 se a lista for nula (inexistente)
 
-    Elem *ant, *no = *li; // cria duas variaveis auxiliares que apontam para o inicio da lista
-    /* enquanto o ponteiro anterior for diferente de null */
-    while (no->prox != NULL) // percorrer a lista até o final
+    if ((*li) == NULL)
+        return 0; // Retorna 0 se a lista estiver vazia
+
+    Elem *ant, *no = *li; // Cria duas variáveis auxiliares que apontam para o início da lista
+
+    while (no->prox != NULL)
     {
-        ant = no;      // anterior recebe o no
-        no = no->prox; // e o no recebe o posterior a ele
+        ant = no;      // A variável "ant" recebe o nó atual
+        no = no->prox; // A variável "no" avança para o próximo nó
     }
+
     if (no == (*li))
-    {                   // no é igual ao inicio?
-        *li = no->prox; // o ponteiro inicio recebe o proximo elemento
+    {                   // Se o nó a ser removido for o primeiro
+        *li = no->prox; // Atualiza o ponteiro de início para o próximo elemento
     }
     else
     {
-        ant->prox = no->prox; // o anterior aponta pra onde o (no) aponta
+        ant->prox = no->prox; // Atualiza o ponteiro do nó anterior para onde o "no" aponta
     }
-    free(no); // libera o no
-    return 1;
-}
 
+    free(no); // Libera a memória do último nó
+
+    return 1; // Retorna 1 para indicar sucesso na remoção
+}
 // função que busca na lista um valor para excluir;
 
 int remove_lista(Lista *li, int num)
 {
     if (li == NULL)
-        return 0;
-    Elem *ant, *no = *li;                         // criar dois auxiliares que apontam para o inicio da lista
-    while (no != NULL && no->dados.numero != num) // enquanto o no for diferente de nulo e numero armazenado for diferente de do numero pesquisado
+        return 0; // Retorna 0 se a lista for nula (inexistente)
+
+    Elem *ant, *no = *li; // Cria duas variáveis auxiliares que apontam para o início da lista
+
+    while (no != NULL && no->dados.numero != num)
     {
-        ant = no;      // o ponteiro anterior recebe o no
-        no = no->prox; // e o ponteiro no recebe o proximo elemento
+        ant = no;      // A variável "ant" recebe o nó atual
+        no = no->prox; // A variável "no" avança para o próximo nó
 
-        // esse while se repete até que uma das da condições forem falsas
+        // Este while se repete até encontrar o elemento a ser removido ou chegar ao final da lista
     }
+
     if (no == NULL)
-        return 0; // não encontrado
+        return 0; // Retorna 0 se o elemento não foi encontrado na lista
 
-    if (no == *li) // remover o primeiro?
-        *li = no->prox;
+    if (no == *li)      // Se o nó a ser removido for o primeiro
+        *li = no->prox; // Atualiza o ponteiro de início para o próximo elemento
     else
-        ant->prox = no->prox;
-    free(no);
-    return 1;
-}
+        ant->prox = no->prox; // Atualiza o ponteiro do nó anterior para onde o "no" aponta
 
+    free(no); // Libera a memória do nó removido
+
+    return 1; // Retorna 1 para indicar sucesso na rem
+}
 // funçao que busca elemento pela posição
 int consulta_lista_pos(Lista *li, int pos, struct numeros *num)
 {
@@ -255,8 +260,8 @@ int consulta_lista_pos(Lista *li, int pos, struct numeros *num)
     int i = 1;
     while (no != NULL && i < pos)
     {
-        no = no->prox;
         i++;
+        no = no->prox;
     }
     if (no == NULL)
         return 0;
