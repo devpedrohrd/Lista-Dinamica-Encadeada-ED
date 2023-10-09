@@ -107,7 +107,7 @@ int main(int argc, char **argv)
             printf("Digite uma posição para buscar um elemento:\n");
             scanf("%d", &pos);
             if (consulta_lista_pos(li, pos, &num))
-                printf("O numero foi localizado!");
+                printf("O numero %d foi localizado na posicao %d!", num, pos);
             else
                 printf("O numero nao foi localizado na lista!");
             break;
@@ -116,7 +116,7 @@ int main(int argc, char **argv)
             printf("Digite uma numero para buscar na lista:\n");
             scanf("%d", &n);
             if (consulta_lista_num(li, n, &num))
-                printf("O numero foi localizado!");
+                printf("O numero %d foi localizado!", num);
             else
                 printf("O numero nao foi localizado na lista!");
             break;

@@ -254,20 +254,32 @@ int remove_lista(Lista *li, int num)
 // funçao que busca elemento pela posição
 int consulta_lista_pos(Lista *li, int pos, struct numeros *num)
 {
+    // Verifica se a lista é nula ou a posição é inválida
     if (li == NULL || pos <= 0)
-        return 0;
+        return 0; // Retorna 0 para indicar falha
+
+    // Inicializa um ponteiro para percorrer a lista
     Elem *no = *li;
+
+    // Inicializa um contador para rastrear a posição atual na lista
     int i = 1;
+
+    // Percorre a lista até a posição desejada ou o final da lista
     while (no != NULL && i < pos)
     {
         i++;
         no = no->prox;
     }
+
+    // Se chegamos ao final da lista sem encontrar a posição desejada, retorna 0
     if (no == NULL)
         return 0;
     else
     {
+        // Se encontramos a posição desejada, copia os dados para a estrutura 'num'
         *num = no->dados;
+
+        // Retorna 1 para indicar sucesso na consulta
         return 1;
     }
 }
