@@ -97,33 +97,39 @@ int insere_lista_inicio(Lista *li, struct numeros num)
 }
 
 // função que insere no final
-
 int insere_lista_final(Lista *li, struct numeros num)
 {
     if (li == NULL)
-        return 0;
-    Elem *no = (Elem *)malloc(sizeof(Elem)); // cria um novo elemento na lista
+        return 0; // Retorna 0 se a lista for nula (inexistente)
 
-    no->dados = num;
+    Elem *no = (Elem *)malloc(sizeof(Elem)); // Aloca memória para um novo elemento da lista
 
-    no->prox = NULL;
-    if ((*li) == NULL) // verifica se a lista está vazia
+    if (no == NULL)
     {
-        *li = no; // o inicio recebe o elemento criado
+        return 0; // Retorna 0 se a alocação de memória falhar
+    }
+
+    no->dados = num; // Define os dados do novo elemento
+
+    no->prox = NULL; // O próximo elemento após este é NULL
+
+    if ((*li) == NULL) // Verifica se a lista está vazia
+    {
+        *li = no; // O início da lista recebe o novo elemento
     }
     else
     {
-        // percorrer até achar o ultimo elemento da lista
+        Elem *aux = *li; // Cria uma variável auxiliar que começa no início da lista
 
-        Elem *aux = *li; // cria uma variavel auxiliar que recebe o inicio da lista;
-
-        while (aux->prox != NULL) // até o aux->prox apontar para null(sempre percorre a lista com o auxiliar)
+        while (aux->prox != NULL) // Percorre até encontrar o último elemento da lista
         {
-            aux = aux->prox; // o auxiliar vai receber o (no) seguinte a ele
+            aux = aux->prox; // Move o auxiliar para o próximo elemento
         }
-        aux->prox = no; // insere o elemento que foi criado
+
+        aux->prox = no; // Insere o novo elemento no final da lista
     }
-    return 1;
+
+    return 1; // Retorna 1 para indicar sucesso na inserção
 }
 
 // funçao que insere no meio de uma lista ordenada
@@ -147,7 +153,7 @@ int insere_lista_ordenada(Lista *li, struct numeros num)
     else
     { // Caso contrário, procure onde inserir
 
-        Elem *ant, *atual = *li; // Cria dois elementos que apontam para o início da lista
+        Elem *ant = NULL, *atual = *li; // Cria dois elementos que apontam para o início da lista
 
         while (atual != NULL && atual->dados.numero < num.numero)
         {
@@ -283,12 +289,12 @@ int consulta_lista_pos(Lista *li, int pos, struct numeros *num)
     Elem *no = *li;
 
     // Inicializa um contador para rastrear a posição atual na lista
-    int i = 1;
+    int cont = 1;
 
     // Percorre a lista até a posição desejada ou o final da lista
-    while (no != NULL && i < pos)
+    while (no != NULL && cont < pos)
     {
-        i++;
+        cont++;
         no = no->prox;
     }
 
