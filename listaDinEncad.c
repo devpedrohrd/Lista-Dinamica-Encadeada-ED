@@ -22,7 +22,7 @@ Lista *cria_lista()
 
     // Verifica se a alocação de memória foi bem-sucedida
     if (li != NULL)
-        *li = NULL; // Inicializa a lista como vazia (ponteiro aponta para NULL)
+        *li = NULL; // Inicializa a lista como vazia (inicio da lista aponta para NULL)
 
     // Retorna o ponteiro para a lista (pode ser NULL se a alocação de memória falhou)
     return li;
@@ -59,7 +59,7 @@ int tamanho_lista(Lista *li)
         return 0;
     int cont = 0; // inicia um contador
 
-    Elem *no = *li; // ponteiro (no) recebe o primeiro elemento da lista
+    Elem *no = *li; // cria um ponteiro (no) que recebe o inicio da lista
 
     while (no != NULL) // percorre a lista nó por nó até que o (no) for null
     {
@@ -88,11 +88,11 @@ int insere_lista_inicio(Lista *li, struct numeros num)
         return 0;
     Elem *no = (Elem *)malloc(sizeof(Elem)); // criar um novo elemento na lista
 
-    no->dados = num; // copia os dados que serao inseridos na lista
+    no->dados = num; // copia os dados que serao inseridos na lista para o elemento criado
 
-    no->prox = (*li); // aponta para o proximo elemento da lista
+    no->prox = (*li); // o elemento criado aponta para o inicio da lista
 
-    *li = no; // o elemento que foi adicionado é o inicio da lista
+    *li = no; //  e o inicio da lista recebe o elemento criado
     return 1;
 }
 
@@ -103,11 +103,13 @@ int insere_lista_final(Lista *li, struct numeros num)
     if (li == NULL)
         return 0;
     Elem *no = (Elem *)malloc(sizeof(Elem)); // cria um novo elemento na lista
+
     no->dados = num;
+
     no->prox = NULL;
-    if ((*li) == NULL) // se o inicio da lista apontar para null(lista vazia);
+    if ((*li) == NULL) // verifica se a lista está vazia
     {
-        *li = no; // o inicio recebe o elemento que foi criado
+        *li = no; // o inicio recebe o elemento criado
     }
     else
     {
@@ -123,8 +125,8 @@ int insere_lista_final(Lista *li, struct numeros num)
     }
     return 1;
 }
-// funçao que insere no meio de uma lista ordenada
 
+// funçao que insere no meio de uma lista ordenada
 int insere_lista_ordenada(Lista *li, struct numeros num)
 {
     if (li == NULL)
