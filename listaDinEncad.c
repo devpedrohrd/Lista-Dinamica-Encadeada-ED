@@ -67,7 +67,7 @@ int tamanho_lista(Lista *li)
 
         no = no->prox; // ponteiro (no) aponta para o proximo
     }
-    return cont; // retorna o contador quantas vezes
+    return cont; // retorna o contador quantas vezes foi repetido
 }
 
 // funçao que diz se a lista está vazia
@@ -80,8 +80,8 @@ int lista_vazia(Lista *li)
         return 1; // se o inicio da lista aponta para null ==> não há nenhum elemento na lista
     return 0;
 }
-// função que insere no inicio da lista:
 
+// função que insere no inicio da lista:
 int insere_lista_inicio(Lista *li, struct numeros num)
 {
     if (li == NULL) // se a lista não existe retorna zero!!
