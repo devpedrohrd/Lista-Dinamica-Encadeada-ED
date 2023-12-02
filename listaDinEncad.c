@@ -328,5 +328,7 @@ int consulta_lista_num(Lista *li, int n, struct numeros *num)
     {
         *num = no->dados;
         return 1;
+
+        
     }
 }
