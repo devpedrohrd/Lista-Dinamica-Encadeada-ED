@@ -86,6 +86,7 @@ int main(int argc, char **argv)
         case 0:
 
         case 7:
+        // case 8:
             if (remove_lista_inicio(li))
                 printf("Elemento excluido com sucesso!\n");
             else
