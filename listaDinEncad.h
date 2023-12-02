@@ -3,6 +3,9 @@
     -O tipos de dados armazenados na lista
     -o ponteiro "lista" */
 
+
+// Definição do tipo lista
+
 struct numeros
 {
     int numero;
